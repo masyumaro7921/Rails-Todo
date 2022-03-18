@@ -1,58 +1,105 @@
 class TagsController < ApplicationController
+
+  before_action :authenticate_user!
+
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
-  # GET /tags
+
+   # GET /tags
+
   def index
-    @tags = Tag.all
+
+    @tags = current_user.tags.all
+
   end
 
-  # GET /tags/1
-  def show
-  end
 
-  # GET /tags/new
+   # # GET /tags/1
+
+  # def show
+
+  # end
+
+
+   # GET /tags/new
+
   def new
-    @tag = Tag.new
+
+    @tag = current_user.tags.new
+
   end
 
-  # GET /tags/1/edit
+
+   # GET /tags/1/edit
+
   def edit
+
   end
 
-  # POST /tags
+
+   # POST /tags
+
   def create
-    @tag = Tag.new(tag_params)
 
-    if @tag.save
-      redirect_to @tag, notice: 'Tag was successfully created.'
-    else
-      render :new
-    end
+    @tag = current_user.tags.new(tag_params)
+
+
+     if @tag.save
+
+      @status = true
+
+     else
+
+      @status = false
+     end
+
   end
 
-  # PATCH/PUT /tags/1
+
+   # PATCH/PUT /tags/1
+
   def update
+
     if @tag.update(tag_params)
-      redirect_to @tag, notice: 'Tag was successfully updated.'
+
+      @status = true
+
     else
-      render :edit
+
+      @status = false
+
     end
+
   end
 
-  # DELETE /tags/1
+
+   # DELETE /tags/1
+
   def destroy
+
     @tag.destroy
-    redirect_to tags_url, notice: 'Tag was successfully destroyed.'
+
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tag
-      @tag = Tag.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def tag_params
-      params.require(:tag).permit(:name, :user_id)
-    end
+   private
+
+
+   # Use callbacks to share common setup or constraints between actions.
+
+  def set_tag
+
+    @tag = current_user.tags.find(params[:id])
+
+  end
+
+
+   # Only allow a trusted parameter "white list" through.
+
+  def tag_params
+
+   params.require(:todo).permit(:content, :goal_id, :position, :done, tag_ids: [])
+
+  end
+
 end

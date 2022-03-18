@@ -7,7 +7,7 @@ class Todo < ApplicationRecord
   accepts_nested_attributes_for :todo_tags
   acts_as_list scope: [:goal_id]
 
-validates :position, numericality: { only_integer: true, allow_mil: true }
+validates :position, numericality: { only_integer: true, allow_nil: true }
 validates :content, presence: true
 validates :done, inclusion: { in: [true, false] }
 

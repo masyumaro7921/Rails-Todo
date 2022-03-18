@@ -1,3 +1,4 @@
+
 <div class="card mt-2 todo-card <%=" text-muted bg-light" if todo.done %>"
 
   data-model_name="<%= Todo.model_name.singular %>"
@@ -66,9 +67,15 @@
 
       <small class="text-muted">
 
-        <%= todo.created_at.strftime('%Y/%m/%d') %>
+        <%= l(todo.created_at, format: :short) if todo.created_at.present? %>
 
       </small>
+
+      <div>
+
+        <%= render partial: "todos/tag", collection: todo.tags, as: :tag %>
+
+      </div>
 
     </div>
 
