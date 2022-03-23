@@ -48,10 +48,11 @@ class TagsController < ApplicationController
 
       @status = true
 
-     else
+    else
 
       @status = false
-     end
+
+    end
 
   end
 
@@ -98,7 +99,7 @@ class TagsController < ApplicationController
 
   def tag_params
 
-   params.require(:todo).permit(:content, :goal_id, :position, :done, tag_ids: [])
+    params.require(:tag).permit(:name, :user_id)
 
   end
 
